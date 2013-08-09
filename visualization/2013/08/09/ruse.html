@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ruse</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+        
+        <div class="container">
+          <div class='about'>
+            <img class='me' src='/images/me.jpg'>
+            <div class='whoami'>
+              <p class='name'>Amit Kapadia</p>
+              <p>Citizen Science developer for the Zooniverse. Usually found in a planetarium or climbing a crag.</p>
+              <p>
+                <a href="http://github.com/kapadia/"><img src='/images/github-logo.png'></a>
+                <a href="http://twitter.com/amitinho/"><img src='/images/twitter-logo.png'></a>
+              </p>
+            </div>
+          </div>
+          
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">astronomy + javascript + visualization</a></h1>
+            </div>
+              
+              <h2>Ruse</h2>
+<p class="meta">09 Aug 2013</p>
+
+<div class="post">
+<p>For a while I&#8217;ve been waiting for an in-browser plotting library built on WebGL. Though there are many great browser-based plotting solutions, the current suite of tools don&#8217;t always address use cases in science.</p>
+
+<p>In the sciences it not uncommon to work with large datasets. For instances, the Sloan Digital Sky Survey (SDSS) just announced its 10th data release containing vast information on millions of astronomical objects, including optical spectra for 3,358,200 objects. Attempting to visualize this many points on a scatter plot would cripple many plotting libraries, and not just those constrained to the browser.</p>
+
+<p>Current browser libraries are built on one of two technologies, SVG or canvas. SVG based libraries offer vector based plots, allowing the graphic to resize to any dimension without losing quality. The drawback is that SVG graphics append one DOM element for every data point. Handling a large dataset such as the SDSS catalog bloats the DOM, creating a hierarchical structure that is tediously slow for the browser to parse. One idea is to move the plot to a canvas based library. Drawing on a canvas consolidates all points onto a single raster graphic represented as one DOM element. Being a raster graphic, it loses the freedom to losslessly resize, but allows for more points to be drawn. Despite scaling better than SVG, canvas suffers from performance problems due to a large number of draw calls pounding the CPU.</p>
+
+<p>The next step is to use newer technologies as a foundation for a new library. Modern browsers, namely Firefox and Chrome, have implemented WebGL, an API to interface with the graphics card. Whereas SVG and canvas primarily use the CPU, WebGL taps into the power of the GPU for drawing graphics. The benefit is raw speed, and scalability of the dataset size.</p>
+
+<p>Ruse is a new browser-based plotting library utilizing WebGL for plotting large datasets. In its current form, Ruse generates histograms and two-dimensional scatter plots. Using Ruse is simple.</p>
+
+<pre><code>// Initialize a plot by passing a parent DOM element, width, and height
+var ruse = new astro.Ruse(el, width, height);
+
+// Create a histogram by passing an array of objects.
+var histogramData = [{x: 9309}, {x: 23098342089}, ..., {x: 3093232}];
+ruse.plot(histogramData);
+
+// Or create a scatter plot
+var scatterData = [{x: 43843, y: 440943}, {x: 3902, y:49084}, ..., {x:39032, y:329824}];
+ruse.plot(scatterData);
+
+// Ruse creates the appropriate plot by checking the dimensionality
+// of the first data point in the array</code></pre>
+
+<p>Ruse has not yet gone through rigorous stress testing, but it successfully plotted the right ascension and declination of all 3,358,200 objects in the <a href='http://www.sdss3.org/dr10/data_access/bulk.php'>optical spectra catalog of SDSS DR10</a>, confirming that SDSS <em>is</em> a northern hemisphere optical telescope, blind along the galactic plane.</p>
+
+<p>Find <a href='https://github.com/kapadia/ruse.js'><code>ruse.js</code></a> and <a href='https://kapadia.github.com/ruse.js'>demo</a> on GitHub.</p>
+</div>
+              
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-42541543-1', 'kapadia.github.io');
+      ga('send', 'pageview');
+
+    </script>
+</html>

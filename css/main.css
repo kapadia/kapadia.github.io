@@ -4,16 +4,13 @@
 /*
 /*****************************************************************************/
 
-/* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-}
 
 html, body {
   height: 100%;
   border-top: 1px solid black;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -151,6 +148,7 @@ ul.posts span {
   color: #333332;
   font-weight: 400;
   line-height: 1.85;
+  padding-bottom: 60px;
 }
 .post pre {
   border: 1px solid #ddd;
