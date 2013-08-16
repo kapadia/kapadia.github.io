@@ -2,7 +2,7 @@
 layout: post
 title:  "Transferring Compressed Files from S3"
 date:   2013-08-16
-categories: fits
+categories:
 ---
 
 Requesting binary data over an `XMLHttpRequest` (XHR) is becoming more frequent.  Transferring binary data has benefits compared to sending a JSON representation when a native data format is desired or when a more compact data representation is needed compared to sending a string based format.  JSON tends to work fine when file sizes are small, but if large chunks of data need to be transferred to the client, a binary representation is more compact.
