@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Transferring Compressed Files from S3</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+        
+        <div class="container">
+          <div class='about'>
+            <img class='me' src='/images/me.jpg'>
+            <div class='whoami'>
+              <p class='name'>Amit Kapadia</p>
+              <p>Citizen Science developer for the Zooniverse. Usually found in a planetarium or climbing a crag.</p>
+              <p>
+                <a href="http://github.com/kapadia/"><img src='/images/github-logo.png'></a>
+                <a href="http://twitter.com/amitinho/"><img src='/images/twitter-logo.png'></a>
+              </p>
+            </div>
+          </div>
+          
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">astronomy + javascript + visualization</a></h1>
+            </div>
+              
+              <h2>Transferring Compressed Files from S3</h2>
+<p class="meta">16 Aug 2013</p>
+
+<div class="post">
+<p>Requesting binary data over an <code>XMLHttpRequest</code> (XHR) is becoming more frequent. Transferring binary data has benefits compared to sending a JSON representation when a native data format is desired or when a more compact data representation is needed compared to sending a string based format. JSON tends to work fine when file sizes are small, but if large chunks of data need to be transferred to the client, a binary representation is more compact.</p>
+
+<p>Amazon&#8217;s S3 supports sending compressed data using gzip. This feature is often used to serve compressed javascript or css files, reducing transfer times, and utilizing the browser&#8217;s implementation of DEFLATE to decompress the files. These features may also be used for arbitrary binary data, but there&#8217;s a trick.</p>
+
+<p>All data must be gzipped prior to uploading to S3. For instance,</p>
+
+<pre><code>gzip some-binary-file</code></pre>
+
+<p>will compress the file using gzip, substantially reducing the file size. Uploading this file to S3 requires a few flags to be set. If using <code>s3cmd</code></p>
+
+<pre><code>s3cmd put some-binary-file.gz s3://some-s3-bucket/ --mime-type &quot;application/json&quot; --add-header &quot;Content-Encoding: gzip&quot; --acl-public</code></pre>
+
+<p>The content encoding must be specified as <code>gzip</code>, and the mime-type <em>must be</em> <code>application/json</code>, even if the file is not JSON.</p>
+
+<p>The binary XHR is written as,</p>
+
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.open(&#39;GET&#39;, url_to_binary_file);
+xhr.responseType = &#39;arraybuffer&#39;;
+
+// NOTE: Overriding the mime type from the client does not work!
+// xhr.overrideMimeType(&quot;application/json&quot;)
+
+xhr.onload = function() {
+  console.log(xhr.response);
+}
+xhr.send();</code></pre>
+
+<p>Now the previously large file is transferred as a compressed file, but retrieved in it&#8217;s original format!</p>
+</div>
+              
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-42541543-1', 'kapadia.github.io');
+      ga('send', 'pageview');
+
+    </script>
+</html>
