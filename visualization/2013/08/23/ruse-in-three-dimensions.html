@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Ruse In Three Dimensions</title>
         <meta name="viewport" content="width=device-width">
 
         <!-- syntax highlighting CSS -->
@@ -33,20 +33,17 @@
               <h1 class="title"><a href="/">astronomy + javascript + visualization</a></h1>
             </div>
               
-              <div id="home">
-  <ul class="posts">
-    
-      <li><span>23 Aug 2013</span> &raquo; <a href="/visualization/2013/08/23/ruse-in-three-dimensions.html">Ruse In Three Dimensions</a></li>
-    
-      <li><span>16 Aug 2013</span> &raquo; <a href="/2013/08/16/transferring-files-s3.html">Transferring Compressed Files from S3</a></li>
-    
-      <li><span>09 Aug 2013</span> &raquo; <a href="/visualization/2013/08/09/ruse.html">Ruse</a></li>
-    
-      <li><span>26 Jul 2013</span> &raquo; <a href="/astrojs/2013/07/26/fitsjs.html">fitsjs 0.5.0</a></li>
-    
-      <li><span>19 Jul 2013</span> &raquo; <a href="/2013/07/19/hola-mundo.html">Hola Mundo!</a></li>
-    
-  </ul>
+              <h2>Ruse In Three Dimensions</h2>
+<p class="meta">23 Aug 2013</p>
+
+<div class="post">
+<p>A few weeks ago I started working on a WebGL based plotting library. The software is still in its infancy, but it&#8217;s beginning to show potential. Here&#8217;s a <a href='http://astrojs.s3.amazonaws.com/ruse/examples/three-dimension-plot.html'>quick demo of Ruse plotting three dimensional data</a>.</p>
+
+<p>The primary benefit of a project like Ruse is scalability. Existing tools are cumbersome when handling larger datasets. Packages such at <a href='http://matplotlib.org/'>matplotlib</a> render using the CPU, whereas Ruse utilizes the GPU. With most modern browsers supporting WebGL, there&#8217;s no need to install OpenGL bindings to use, for instance, a Python based OpenGL plotting package.</p>
+
+<p>Ruse is still missing key components, like the absent axes in the above demo, but these items will be added in the next few weeks.</p>
+
+<p>Find <a href='https://github.com/kapadia/ruse.js'><code>ruse.js</code></a> on GitHub.</p>
 </div>
               
           </div>
