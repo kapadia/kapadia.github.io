@@ -138,5 +138,3 @@ The technique in the above example requires a careful preparation of data, and a
 
 The intent of using this tool is to port scientific algorithms to JS for use in web applications.  Next week is [.astronomy](http://dotastronomy.com/events/five/) – a conference bringing together astronomers and developers to share and implement unique ideas. One  idea is to port an astronomical source extraction algorithm to Javascript.  More on that soon.
 
-
-[]
